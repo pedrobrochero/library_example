@@ -1,0 +1,22 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "Library API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc && node build/index",
+    "dev": "nodemon -e ts --exec \"npm run compile\""
+  },
+  "author": "Pedro Brochero <pbrochero@evolucionass.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.8",
+    "@types/pg": "^7.14.5",
+    "express": "^4.17.1",
+    "pg": "^8.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.6"
+  }
+}
