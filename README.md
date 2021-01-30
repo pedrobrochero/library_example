@@ -42,6 +42,8 @@ npm start
 * put('/book/lend/:id')
 * put('/book/return/:id')
 
+Para prestar y regresar libros se requiere incluir en el body el parametro persona_id
+
 ### Personas
 * post('/persona')
 * get('/persona/:id')

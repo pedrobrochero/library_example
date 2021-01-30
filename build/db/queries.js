@@ -18,14 +18,14 @@ exports.updateBook = (id, name, author, year) => index_1.default.query(`UPDATE $
     'WHERE id = $4', [name, author, year, id]);
 exports.deleteBook = (id) => index_1.default.query(`DELETE FROM ${T.books} WHERE id = $1`, [id]);
 exports.searchBook = (query) => index_1.default.query(`SELECT * FROM ${T.books} ` +
-    `WHERE name ILIKE $1 OR author ILIKE $1 OR year = $2 ` +
-    'ORDER name ', [`%${query}%`, +query]);
+    `WHERE name ILIKE $1 OR author ILIKE $1 ` +
+    'ORDER BY name ', [`%${query}%`]);
 exports.lendBook = (bookId, personaId) => index_1.default.transaction(`UPDATE ${T.books} SET is_lend = true WHERE id = $1`, [bookId], `INSERT INTO ${T.history} (book_id, persona_id, action_lend, created_at) 
     VALUES($1,$2,true,CURRENT_TIMESTAMP AT TIME ZONE 'UTC')`, [bookId, personaId]);
 exports.returnBook = (bookId, personaId) => index_1.default.transaction(`UPDATE ${T.books} SET is_lend = false WHERE id = $1`, [bookId], `INSERT INTO ${T.history} (book_id, persona_id, action_lend, created_at) 
     VALUES($1,$2,false,CURRENT_TIMESTAMP AT TIME ZONE 'UTC')`, [bookId, personaId]);
 // ==================== PERSONAS ====================
-exports.createPersona = (name) => index_1.default.query(`INSERT INTO ${T.personas} (name) VALUES ($1)`, [name]);
+exports.createPersona = (name) => index_1.default.query(`INSERT INTO ${T.personas} (name) VALUES ($1) RETURNING id`, [name]);
 exports.getPersona = (id) => index_1.default.query(`SELECT * FROM ${T.personas} WHERE id = $1`, [id]);
 exports.updatePersona = (id, name) => index_1.default.query(`UPDATE ${T.personas} SET
 name = COALESCE($1, name) 
